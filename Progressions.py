@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # The 12 keys in array form
 keys1 = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab']
 keys = keys1+keys1[0:12]
