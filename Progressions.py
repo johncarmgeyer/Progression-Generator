@@ -43,34 +43,37 @@ def read(p):
     return cs2
 # Turns a chord into words
 def cW(c):
-    b = True
-    tone = ''
+    a = True
     for i in range(0, len(c)-1):
-        if(abs(c[i]-c[i+1]) != mj[i+1]): b = False
-    if b == False: tone = 'Minor'
-    if b == True: tone = 'Major'
+        if(abs(c[i]-c[i+1]) != abs(mj[i]-mj[i+1])): a = False
+    b = True
+    for i in range(0, len(c)-1):
+        if(abs(c[i]-c[i+1]) != abs(mn[i]-mn[i+1])): b = False
+    tone = ''
+    if a == True: tone = 'Major'
+    elif b == True: tone = 'Minor'
+    else: tone == 'Null'
     return keys[c[0]] + ' ' + tone
-# Turns a progression into words
-def pW(p):
-    words = [] 
-    for i in p:
-        words.append(cW(i))
-    return words
 # Prints a progression
 def printP(p):
     s = ''
+    cr = ' | '
     if type(p[0]) == str: 
         for i in range(0, len(p)-1):
-            s+=p[i]+', '
+            if(len(p[i]) == 7): cr='  | '
+            else: cr = ' | '
+            s+=p[i]+cr
         s+=p[len(p)-1]
     elif type(p[0]) == list:
         cs = []
         for i in p:
             cs.append(cW(i))
         for i in range(0, len(cs)-1):
-            s+=cs[i]+', '
+            if(len(cs[i]) == 7): cr='  | '
+            else: cr = ' | '
+            s+=cs[i]+cr
         s+=cs[len(cs)-1]
-    print s
+    return s
 # Transposes progressions from one key to another
 # 'k' is either a key, e.g. 'D', or a numerical value.
 def transpose(p1, k):
@@ -89,14 +92,22 @@ def transpose(p1, k):
         for i in p:
             p3.append(add(i, val))
         return p3
+# Prints a two-progression transposition 
+count = 0
 def printT(p1, k):
-    p = transpose(p1)
-    i = pW(p1)
-    ii = pW(p)1
+    global count
+    count+=1
+    p = transpose(p1, k)
+    i = printP(p1)
+    ii = printP(p)
+    print str(count)+'.\n'+i+' \n\n'+ii+'\n'
     
 # Progressions – Two word entries, e.g. 'Gb Minor', not 'G Flat Minor'.
 i = ['Db Minor', 'B Major', 'Gb Major']
-i = transpose(i, 'C')
-printP(i)
-#ii = read(['G Minor', 'F Major', 'Eb Major', 'D Major'])
-# iii = read(['C Minor', 'Eb Major', 'G Minor', 'F Major'])
+ii = ['G Minor', 'F Major', 'Eb Major', 'D Major']
+iii = ['C Minor', 'Eb Major', 'G Minor', 'F Major']
+# Function Implementation
+# Transposition Values: [-27, 25]
+printT(i, -1)
+printT(ii, 4)
+printT(iii, -8)
