@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # The 12 keys in array form
 keys1 = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab']
 keys = keys1+keys1[0:12]
@@ -76,7 +77,7 @@ def printP(p):
     return s
 # Transposes progressions from one key to another
 # 'k' is either a key, e.g. 'D', or a numerical value.
-def transpose(p1, k):
+def t(p1, k):
     p = read(p1)
     if type(k) == int: 
         p2 = []
@@ -94,10 +95,10 @@ def transpose(p1, k):
         return p3
 # Prints a two-progression transposition 
 count = 0
-def printT(p1, k):
+def transpose(p1, k):
     global count
     count+=1
-    p = transpose(p1, k)
+    p = t(p1, k)
     i = printP(p1)
     ii = printP(p)
     print str(count)+'.\n'+i+' \n\n'+ii+'\n'
@@ -108,6 +109,6 @@ ii = ['G Minor', 'F Major', 'Eb Major', 'D Major']
 iii = ['C Minor', 'Eb Major', 'G Minor', 'F Major']
 # Function Implementation
 # Transposition Values: [-27, 25]
-printT(i, -1)
-printT(ii, 4)
-printT(iii, -8)
+transpose(i, -1)
+transpose(ii, 'Db')
+transpose(iii, 8)
